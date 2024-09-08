@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         generateResume();
     });
 
+    // Get form values
     function generateResume() {
         const name = (document.getElementById('name') as HTMLInputElement).value;
         const email = (document.getElementById('email') as HTMLInputElement).value;
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const skills = (document.getElementById('skills') as HTMLTextAreaElement).value;
         const hobbies = (document.getElementById('hobbies') as HTMLTextAreaElement).value;
 
-        // Handle profile picture
+        // profile picture
         const profilePictureInput = document.getElementById('profile-picture') as HTMLInputElement;
         let profilePictureHTML = '';
 
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             profilePictureHTML = '';
             updateResume();
         }
-
+ // Updated resume content taken from user
         function updateResume() {
             const resumeContent = `
                 <section class="personal-info">
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             resume.innerHTML = resumeContent;
 
-            // Add event listeners to editable fields
+            // Adding event listeners to editable fields
             const editableFields = document.querySelectorAll('.editable');
             editableFields.forEach(field => {
                 field.addEventListener('click', () => {
@@ -123,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Show the resume container when the resume is generated
+        // this is to show the resume after user clicks generate resume button
         const resumeContainer = document.getElementById('resume-container');
         if (resumeContainer) {
             resumeContainer.style.display = 'block';

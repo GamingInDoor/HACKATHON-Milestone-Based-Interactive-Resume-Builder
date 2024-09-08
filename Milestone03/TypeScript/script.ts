@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 });
+
+// taking user input to fill resume 
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('resume-form') as HTMLFormElement;
     const resume = document.getElementById('resume') as HTMLDivElement;
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const skills = (document.getElementById('skills') as HTMLTextAreaElement).value;
       const hobbies = (document.getElementById('hobbies') as HTMLTextAreaElement).value;
       
-      // Handle profile picture
+      // profile picture
         const profilePictureInput = document.getElementById('profile-picture') as HTMLInputElement;
         let profilePictureHTML = '';
 
@@ -59,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-            // Create an image element
+            // Createing an image element
             const img = new Image();
             img.src = reader.result as string;
             img.onload = () => {
-            // Ensure the image has a 1:1 aspect ratio
+            // Ensureing the image has a 1:1 aspect ratio
             if (img.width === img.height) {
                 profilePictureHTML = `<img src="${img.src}" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">`;
             } else {
@@ -74,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         reader.readAsDataURL(file);
         } else {
-        // No profile picture uploaded
+        // If no profile picture uploaded then this
         profilePictureHTML = '';
         updateResume();
         }
@@ -85,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Event listener for "Generate Resume" button
         generateResumeBtn?.addEventListener('click', () => {
           updateResume();
-          // Show the resume container when the resume is generated
           if (resumeContainer) {
             resumeContainer.style.display = 'block';
           }
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         function updateResume() {
-        // Generate resume content
+        // Updated resume content taken from user
         const resumeContent = `
             <section class="personal-info">
             ${profilePictureHTML}
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </section>
         `;
 
-        // Update resume with new content
+        // Updateing resume with new content
         resume.innerHTML = resumeContent;
         }
     });
