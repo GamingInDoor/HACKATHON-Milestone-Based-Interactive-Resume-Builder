@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- Linking CSS -->
+  <link rel="stylesheet" href="CSS/styles.css">
+
+    
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Resume Builder Milestone: 1</title>
+</head>
+<body>
+
+<section>
+  <!-- Form to capture user input -->
+  <form id="resume-form">
+    <h1>Fill the form to get resume</h1>
+    
+    <h3>Personal Information</h3>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="phone">Phone:</label>
+    <input type="number" id="phone" name="phone" required>
+    <label for="details">Details:</label>
+    <textarea id="details" name="details" required></textarea>
+    
+    <h3>Education</h3>
+    <label for="institution">Institution:</label>
+    <input type="text" id="institution" name="institution" required>
+    <label for="major">Major:</label>
+    <input type="text" id="major" name="major" required>
+    <label for="minor">Minor:</label>
+    <input type="text" id="minor" name="minor" required>
+
+    <h3>Work Experience</h3>
+    <label for="work">Work Experience:</label>
+    <textarea id="work" name="work" required></textarea>
+
+    <h3>Skills</h3>
+    <label for="skills">Skills:</label>
+    <textarea id="skills" name="skills" required></textarea>
+
+    <h3>Hobbies</h3>
+    <label for="hobbies">Hobbies:</label>
+    <textarea id="hobbies" name="hobbies" required></textarea>
+
+    <h3>Profile Picture (optional)</h3>
+    <label for="profile-picture">Upload Profile Picture (1:1 ratio):</label>
+    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+    
+    <button type="submit" id="generate-resume-btn">Generate Resume</button>
+  </form>
+</section>
+   
+<section id="middle"><h1>Your Resume (Editable)</h1></section>
+  
+
+<section id="resume-container">
+    <section id="resume">
+
+        <!-- Personal Information Section -->
+        <section class="personal-info">
+            <img src="IMG/Profile-Picture.png" alt="Profile Picture">
+            <h1>John Doe</h1>
+            <h2>Contact Info</h2>
+            <p>Phone: <a href="#">(+92) 300-000-0000</a></p>
+            <p>Email: <a href="#">John.doe@gmail.com</a></p>
+            <h2>Details</h2>
+            <p id="Details"> "I started my programming journey about an year ago.
+            Currently i am a student of GIAIC, and I am on my way to become
+            a certified cloud generative AI engineer."</p>
+        </section>
+        
+
+        <!-- Education Section -->
+        <section class="education">
+            <h2>Education</h2>
+            <p><strong>Institution:</strong> Any University</p>
+            <p><strong>Major:</strong> Computer Science<br><strong>Minor:</strong> Applied Mathematics</p>
+        </section>
+        
+
+        <!-- Skills Section -->
+        <section class="skills">
+            <h2>Skills</h2>
+            <button id="toggle-skills">Show Skills</button>
+            <div id="skills-content">
+                <p><strong>Office Skills:</strong></p>
+                <p>Ms Office, Ms excel, Ms paint and Canva</p>
+                <p><strong>Computer Skills:</strong></p>
+                <p>HTML, CSS and TypeScript</p>
+            </div>
+        </section>
+
+        
+        <!-- Work Experience Section -->
+        <section class="work-experience">
+            <h2>Experience</h2>
+            <p><strong>Software House:</strong> <span>karachi 2022 - present</span></p>
+            <ul>
+                <li>Development Of websites, Worked on Front-end.</li>
+            </ul>
+            <p><strong>GIAIC:</strong> <span>karachi 2023 - present</span></p>
+            <ul>
+                <li>Implemented and attempted test of HTML, CSS and TypeScript (passed with an A grade). Took part in a Hackathon. </li>
+            </ul>
+        </section>
+        
+    
+        <!-- Hobbies Section --> 
+        <section class="hobbies">
+            <h2>Hobbies</h2>
+            <button id="toggle-hobbies">See Hobbies</button>
+            <div id="hobbies-content">
+                <p>Playing Chess, Gaming, Programming.</p>
+            </div>
+        </section>
+    </section>   
+</section>        
+    
+    
+
+<!-- Linking JavaScript -->
+<script src="TypeScript/script.js"></script>
+</body>
+</html>
