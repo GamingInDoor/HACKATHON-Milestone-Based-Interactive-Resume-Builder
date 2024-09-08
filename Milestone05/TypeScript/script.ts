@@ -1,3 +1,5 @@
+// For Downloading PDF 
+
 declare const html2pdf: any;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (resume) {
             const opt = {
-                margin: 1,
+                margin: 0.2,
                 filename: 'resume.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 1 },
+                image: { type: 'jpeg', quality: 5 },
+                html2canvas: { scale: 5 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
@@ -66,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         generateResume();
     });
 
+    function generateUniqueUrl(username: string): string {
+        return `https://${username}.vercel.app/resume`;
+    }
+    
     function generateResume() {
         const name = (document.getElementById('name') as HTMLInputElement).value;
         const email = (document.getElementById('email') as HTMLInputElement).value;
@@ -77,15 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const work = (document.getElementById('work') as HTMLTextAreaElement).value;
         const skills = (document.getElementById('skills') as HTMLTextAreaElement).value;
         const hobbies = (document.getElementById('hobbies') as HTMLTextAreaElement).value;
-
+        const username = (document.getElementById('username') as HTMLInputElement).value;
+    
         // Handle profile picture
         const profilePictureInput = document.getElementById('profile-picture') as HTMLInputElement;
         let profilePictureHTML = '';
-
+    
         if (profilePictureInput.files && profilePictureInput.files[0]) {
             const file = profilePictureInput.files[0];
             const reader = new FileReader();
-
+    
             reader.onloadend = () => {
                 const img = new Image();
                 img.src = reader.result as string;
@@ -103,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             profilePictureHTML = '';
             updateResume();
         }
-
+    
         function updateResume() {
             const resumeContent = `
                 <section class="personal-info">
@@ -133,9 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="editable" data-field="hobbies">${hobbies}</p>
                 </section>
             `;
-
+    
+            const resume = document.getElementById('resume') as HTMLElement;
             resume.innerHTML = resumeContent;
-
+    
             // Add event listeners to editable fields
             const editableFields = document.querySelectorAll('.editable');
             editableFields.forEach(field => {
@@ -148,27 +156,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
-
-            // Generate unique URL and add it to the resume
-            const username = 'user'; // Replace with actual username logic
-            const resumeURL = `http://username.vercel.app/resume/${username}`;
-            shareButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(resumeURL).then(() => {
-                    alert('Resume URL copied to clipboard!');
-                });
-            });
-
-            // Download resume as PDF
-            downloadButton.addEventListener('click', () => {
-                const resumeElement = document.getElementById('resume') as HTMLDivElement;
-                html2pdf().from(resumeElement).save('resume.pdf');
-            });
-
+    
             // Show the resume container when the resume is generated
             const resumeContainer = document.getElementById('resume-container');
             if (resumeContainer) {
                 resumeContainer.style.display = 'block';
             }
+    
+            // Add a unique URL and share button
+            const uniqueUrl = generateUniqueUrl(username);
+    
+            const shareButton = document.createElement('button');
+            shareButton.textContent = 'Share Resume';
+            document.body.appendChild(shareButton);
+    
+            const urlDisplay = document.createElement('p');
+            urlDisplay.textContent = `Your unique resume URL: ${uniqueUrl}`;
+            document.body.appendChild(urlDisplay);
+    
+            shareButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(uniqueUrl).then(() => {
+                    alert('URL copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy URL: ', err);
+                });
+            });
         }
     }
 });

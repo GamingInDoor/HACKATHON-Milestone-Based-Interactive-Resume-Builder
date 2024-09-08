@@ -1,4 +1,5 @@
 "use strict";
+// For Downloading PDF 
 document.addEventListener('DOMContentLoaded', () => {
     const generatePdfButton = document.createElement('button');
     generatePdfButton.textContent = 'Download PDF';
@@ -7,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const resume = document.getElementById('resume');
         if (resume) {
             const opt = {
-                margin: 1,
+                margin: 0.2,
                 filename: 'resume.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 1 },
+                image: { type: 'jpeg', quality: 5 },
+                html2canvas: { scale: 5 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             html2pdf().from(resume).set(opt).save();
@@ -55,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         generateResume();
     });
+    function generateUniqueUrl(username) {
+        return `https://${username}.vercel.app/resume`;
+    }
     function generateResume() {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const work = document.getElementById('work').value;
         const skills = document.getElementById('skills').value;
         const hobbies = document.getElementById('hobbies').value;
+        const username = document.getElementById('username').value;
         // Handle profile picture
         const profilePictureInput = document.getElementById('profile-picture');
         let profilePictureHTML = '';
@@ -120,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="editable" data-field="hobbies">${hobbies}</p>
                 </section>
             `;
+            const resume = document.getElementById('resume');
             resume.innerHTML = resumeContent;
             // Add event listeners to editable fields
             const editableFields = document.querySelectorAll('.editable');
@@ -133,24 +139,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
-            // Generate unique URL and add it to the resume
-            const username = 'user'; // Replace with actual username logic
-            const resumeURL = `http://username.vercel.app/resume/${username}`;
-            shareButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(resumeURL).then(() => {
-                    alert('Resume URL copied to clipboard!');
-                });
-            });
-            // Download resume as PDF
-            downloadButton.addEventListener('click', () => {
-                const resumeElement = document.getElementById('resume');
-                html2pdf().from(resumeElement).save('resume.pdf');
-            });
             // Show the resume container when the resume is generated
             const resumeContainer = document.getElementById('resume-container');
             if (resumeContainer) {
                 resumeContainer.style.display = 'block';
             }
+            // Add a unique URL and share button
+            const uniqueUrl = generateUniqueUrl(username);
+            const shareButton = document.createElement('button');
+            shareButton.textContent = 'Share Resume';
+            document.body.appendChild(shareButton);
+            const urlDisplay = document.createElement('p');
+            urlDisplay.textContent = `Your unique resume URL: ${uniqueUrl}`;
+            document.body.appendChild(urlDisplay);
+            shareButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(uniqueUrl).then(() => {
+                    alert('URL copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy URL: ', err);
+                });
+            });
         }
     }
 });
